@@ -24,7 +24,6 @@ class ApplicationSnapshot:
         
         if len(self.status_path) == 1 and self.applied_date + timedelta(days=30) <= datetime.today():
             self.status_path.append("Ghosted")
-
         
     def __get_status_string(self, status_symbol: str) -> str:
         if status_symbol == "A":

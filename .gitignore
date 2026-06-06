@@ -1,0 +1,26 @@
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/*.pyc
+
+# Node
+frontend/node_modules/
+
+# Environment variables
+**/.env
+**/.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Build artifacts
+frontend/dist/
+frontend/build/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/u
