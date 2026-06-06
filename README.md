@@ -1,5 +1,5 @@
 # JobFlow
 
-A web app for turning job application history into simple visualizations.
+A web application for visualizing application pipeline data.
 
-Upload or enter application data and see how applications move through statuses like applied, interview, rejected, and offer.
+Built with FastAPI and React.
