@@ -24,3 +24,6 @@ frontend/build/
 # Python tooling
 .pytest_cache/
 .mypy_cache/u
+
+# sample data
+backend/src/visualizations/applications.csv
