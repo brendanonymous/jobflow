@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class SankeyDataModel(BaseModel):
+class SankeyDto(BaseModel):
     sources:    list[int]
     targets:    list[int]
     values:     list[int]

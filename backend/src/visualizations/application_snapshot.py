@@ -36,3 +36,5 @@ class ApplicationSnapshot:
             return "Offer"
         if status_symbol == "G":
             return "Ghosted"
+        if status_symbol == "W":
+            return "Withdrawn"
