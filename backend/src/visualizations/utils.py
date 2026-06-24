@@ -1,11 +1,12 @@
 import csv
+from visualizations.application_snapshot import ApplicationSnapshot
 
 '''
 TODO:
 get_job_applications is a temporary POC function.
 It will be replaced by real DB fetching using an ORM.
 '''
-def get_job_applications(filename: str = "src/visualizations/applications.csv") -> list[ApplicationSnapshot]:
+def get_job_applications(filename: str = "backend/src/visualizations/applications.csv") -> list[ApplicationSnapshot]:
     job_applications = []
     with open(filename, newline='') as file:
         reader = csv.reader(file)

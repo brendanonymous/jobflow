@@ -17,7 +17,7 @@ def get_link_color(source: str, target: str) -> str:
 
 
 def generate_sankey_dto() -> SankeyDto:
-    applications = get_job_applications("src/visualizations/applications.csv") # TODO: Remove after POC
+    applications = get_job_applications() # TODO: Remove after POC
     edge_counts = Counter()
     for application in applications:
         path = application.status_path

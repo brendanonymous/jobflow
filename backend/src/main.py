@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 import uvicorn
-from visualizations.router import router as visualizations_router
+from routes.analytics import analytics_router
 
 app = FastAPI(title="jobflow API")
 
-app.include_router(visualizations_router)
+app.include_router(analytics_router)
 
 @app.get("/")
 def root():
