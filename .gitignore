@@ -1,6 +1,6 @@
 # Python
 backend/.venv/
-backend/__pycache__/
+backend/**/__pycache__/
 backend/**/*.pyc
 
 # Node
@@ -27,3 +27,4 @@ frontend/build/
 
 # sample data
 backend/src/visualizations/applications.csv
+*.sql

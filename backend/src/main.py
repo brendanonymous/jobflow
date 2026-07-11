@@ -1,10 +1,12 @@
-from fastapi import FastAPI
 import uvicorn
-from routes.analytics import analytics_router
+from fastapi import FastAPI
+from src.routes.analytics import analytics_router
+from src.routes.applications import applications_router
 
 app = FastAPI(title="jobflow API")
 
-app.include_router(analytics_router)
+for router in [analytics_router, applications_router]:
+    app.include_router(router)
 
 @app.get("/")
 def root():

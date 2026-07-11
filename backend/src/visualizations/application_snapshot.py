@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 class StatusLabelGenerationError(Exception):
     pass
 
+#TODO: Migrate to pydantic once we need to use it
 class ApplicationSnapshot:
     def __init__(self, company, applied_date_string, status_string: str):
         self.company = company

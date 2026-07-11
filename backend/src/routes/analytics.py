@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 import json
-from visualizations import sankey
+from src.visualizations import sankey
 
 # Initialize the router with a prefix and tags for automatic documentation
 analytics_router = APIRouter(

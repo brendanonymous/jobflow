@@ -1,5 +1,5 @@
 import csv
-from visualizations.application_snapshot import ApplicationSnapshot
+from src.visualizations.application_snapshot import ApplicationSnapshot
 
 '''
 TODO:

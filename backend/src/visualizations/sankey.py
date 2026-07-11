@@ -1,7 +1,7 @@
 from collections import Counter
-from visualizations.application_snapshot import ApplicationSnapshot
-from visualizations.sankey_dto import SankeyDto
-from visualizations.utils import get_job_applications # TODO: Rm after POC
+# from src.visualizations.application_snapshot import ApplicationSnapshot
+from src.schemas.sankey import SankeyDto
+from src.visualizations.utils import get_job_applications # TODO: Remove this line after POC
 
 def get_link_color(source: str, target: str) -> str:
     """translates an application path into a color"""
@@ -17,7 +17,7 @@ def get_link_color(source: str, target: str) -> str:
 
 
 def generate_sankey_dto() -> SankeyDto:
-    applications = get_job_applications() # TODO: Remove after POC
+    applications = get_job_applications() # TODO: Remove this line after POC
     edge_counts = Counter()
     for application in applications:
         path = application.status_path
