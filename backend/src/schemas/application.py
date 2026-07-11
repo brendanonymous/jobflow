@@ -14,3 +14,8 @@ class ApplicationCreateResponse(BaseModel):
     role_name: str
     applied_date: date
     created_at: datetime
+
+class ApplicationUpdateRequest(BaseModel):
+    company_name: str | None = None
+    role_name: str | None = None
+    applied_date: date | None = None

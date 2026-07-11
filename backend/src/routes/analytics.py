@@ -7,6 +7,8 @@ analytics_router = APIRouter(
     prefix="/analytics"
 )
 
+
+# TODO: adapt to new backend architecture and return a Sankey dto instead of a JSON string
 @analytics_router.get("/sankey")
 async def generate_sankey():
     """Generate a Sankey dto and return to user"""
