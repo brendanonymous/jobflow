@@ -16,12 +16,9 @@ def get_link_color(source: str, target: str) -> str:
     return "rgba(160,160,160,0.25)"
 
 
-def generate_sankey_dto() -> SankeyDto:
-    applications = get_job_applications() # TODO: Remove this line after POC
+def generate_sankey_dto(status_paths: list[list]) -> SankeyDto:
     edge_counts = Counter()
-    for application in applications:
-        path = application.status_path
-
+    for path in status_paths:
         if len(path) < 2:
             continue
 
@@ -52,7 +49,6 @@ def generate_sankey_dto() -> SankeyDto:
         targets.append(node_value_lookup[dst])
         values.append(val)
         colors.append(get_link_color(src, dst))
-
     
     sankey_dto = SankeyDto(
         sources=sources,

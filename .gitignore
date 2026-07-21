@@ -25,6 +25,5 @@ frontend/build/
 .pytest_cache/
 .mypy_cache/u
 
-# sample data
-backend/src/visualizations/applications.csv
-*.sql
+# scripts
+backend/scripts/
