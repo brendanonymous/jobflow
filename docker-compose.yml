@@ -2,14 +2,42 @@ services:
   postgres:
     image: postgres:16
     container_name: jobflow-postgres
+
     environment:
       POSTGRES_USER: jobflow
       POSTGRES_PASSWORD: jobflow
       POSTGRES_DB: jobflow
+
     ports:
       - "5433:5432"
+
     volumes:
       - jobflow-postgres-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jobflow -d jobflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+
+    container_name: jobflow-api
+
+    env_file:
+      - ./backend/.env.docker
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./backend:/app
+
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   jobflow-postgres-data:

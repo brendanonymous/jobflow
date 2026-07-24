@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from collections.abc import Generator
+from sqlalchemy.orm import Session, declarative_base, sessionmaker
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.environ["DATABASE_URL"]
 
 if DATABASE_URL is None:
     raise RuntimeError("DATABASE_URL is not set")
@@ -13,17 +14,13 @@ if DATABASE_URL is None:
 engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(
+    bind=engine,
     autocommit=False,
     autoflush=False,
-    bind=engine,
 )
 
 Base = declarative_base()
 
 def get_session() -> Generator[Session, None, None]:
-    db = SessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    with SessionLocal() as session:
+        yield session

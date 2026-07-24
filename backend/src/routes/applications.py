@@ -6,7 +6,11 @@ from src.models import Application, StatusEvent
 from src.schemas.application import (
     ApplicationCreateRequest,
     ApplicationCreateResponse,
-    ApplicationUpdateRequest)
+    ApplicationUpdateRequest
+    )
+from src.schemas.status_event import (
+    StatusEventCreateRequest
+    )
 
 # TODO: remove after cognito is integrated
 # NOTE: there must be a user record with this id
@@ -19,13 +23,23 @@ applications_router = APIRouter(
 )
 
 
-@applications_router.get("/", status_code=status.HTTP_200_OK)
+# TODO: Create a response dto because the frontend is not
+#       serializing the sql alchemy object. blehh.
+@applications_router.get("", status_code=status.HTTP_200_OK)
 def get_applications(session: Session = Depends(get_session)):
     """fetch all applications associated with user id"""
     applications = session.execute(
         select(Application)
         .where(Application.user_id == LOCAL_DEV_USER_ID)
     ).scalars().all()
+
+    print(applications[0].id)
+    print(applications[0].user_id)
+    print(applications[0].company_name)
+    print(applications[0].role_name)
+    print(applications[0].user)
+    print(applications[0].status_events)
+    print(applications[0].applied_date)
         
     return applications
 
