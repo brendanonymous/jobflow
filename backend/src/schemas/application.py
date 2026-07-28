@@ -4,18 +4,25 @@ from datetime import date, datetime
 class ApplicationCreateRequest(BaseModel):
     company_name:   str
     role_name:      str
-    applied_date: date | None = None
+    applied_date:   date | None = None
 
 class ApplicationCreateResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
-    company_name: str
-    role_name: str
-    applied_date: date
-    created_at: datetime
+    id:             int
+    company_name:   str
+    role_name:      str
+    applied_date:   date
+    created_at:     datetime
 
 class ApplicationUpdateRequest(BaseModel):
-    company_name: str | None = None
-    role_name: str | None = None
-    applied_date: date | None = None
+    company_name:   str | None = None
+    role_name:      str | None = None
+    applied_date:   date | None = None
+
+class ApplicationListResponse(BaseModel):
+    id: int
+    company_name:   str
+    role_name:      str
+    applied_date:   date
+    current_status: str | None = None

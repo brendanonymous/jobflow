@@ -1,12 +1,13 @@
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 from fastapi import APIRouter, status, Depends
 from src.database import get_session
 from src.models import Application, StatusEvent
 from src.schemas.application import (
     ApplicationCreateRequest,
     ApplicationCreateResponse,
-    ApplicationUpdateRequest
+    ApplicationUpdateRequest,
+    ApplicationListResponse
     )
 from src.schemas.status_event import (
     StatusEventCreateRequest
@@ -22,26 +23,33 @@ applications_router = APIRouter(
     tags=["applications"],
 )
 
-
-# TODO: Create a response dto because the frontend is not
-#       serializing the sql alchemy object. blehh.
 @applications_router.get("", status_code=status.HTTP_200_OK)
-def get_applications(session: Session = Depends(get_session)):
-    """fetch all applications associated with user id"""
-    applications = session.execute(
+def get_applications(session: Session = Depends(get_session)) -> list[ApplicationListResponse]:
+    """Fetch all applications associated with current user."""
+    applications = session.scalars(
         select(Application)
+        .options(selectinload(Application.status_events))
         .where(Application.user_id == LOCAL_DEV_USER_ID)
-    ).scalars().all()
+    ).all()
 
-    print(applications[0].id)
-    print(applications[0].user_id)
-    print(applications[0].company_name)
-    print(applications[0].role_name)
-    print(applications[0].user)
-    print(applications[0].status_events)
-    print(applications[0].applied_date)
+    response: list[ApplicationListResponse] = []
+
+    for application in applications:
+        latest_status = application.status_events[-1] if application.status_events else None
+
+        response.append(
+            ApplicationListResponse(
+                id=application.id,
+                company_name=application.company_name,
+                role_name=application.role_name,
+                applied_date=application.applied_date,
+                current_status=latest_status.status if latest_status else None,
+            )
+        )
+
+    print(response[0].current_status)
         
-    return applications
+    return response
 
 
 @applications_router.get("/{application_id}", status_code=status.HTTP_200_OK)

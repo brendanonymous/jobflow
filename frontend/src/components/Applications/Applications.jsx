@@ -21,7 +21,7 @@ export default function Applications() {
             <td>{application.company_name}</td>
             <td>{application.role_name}</td>
             <td>{application.applied_date}</td>
-            {/* <td>{application.status_events.at(-1)?.status}</td> */}
+            <td>{application?.current_status}</td>
         </tr>
     ));
 

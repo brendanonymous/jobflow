@@ -18,6 +18,7 @@ class Application(Base):
 
     status_events: Mapped[List["StatusEvent"]] = relationship(
         back_populates="application",
+        order_by="StatusEvent.created_at",
         cascade="all, delete-orphan",
     )
 

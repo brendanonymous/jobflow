@@ -4,7 +4,7 @@ import Applications from './components/Applications/Applications'
 function App() {
   return (
     <>
-      <h2>Documentation</h2>
+      <h2>JobFlow</h2>
       <Applications />
     </>
   )
