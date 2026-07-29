@@ -2,7 +2,7 @@ import "./Applications.css"
 import { useState, useEffect } from "react"
 import { fetchApplications } from "../../api/applications";
 
-export default function Applications() {
+export default function Applications({ refreshTrigger = 0 }) {
     const [applications, setApplications] = useState([]);
     
     async function loadApplications() {
@@ -12,9 +12,7 @@ export default function Applications() {
 
     useEffect(() => {
         loadApplications();
-    }, [])
-
-    console.log(applications[0]);
+    }, [refreshTrigger]);
     
     const listOfApplications = applications.map(application => (
         <tr key={application.id}>

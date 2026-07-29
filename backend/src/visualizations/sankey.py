@@ -1,7 +1,6 @@
 from collections import Counter
 # from src.visualizations.application_snapshot import ApplicationSnapshot
 from src.schemas.sankey import SankeyDto
-from src.visualizations.utils import get_job_applications # TODO: Remove this line after POC
 
 def get_link_color(source: str, target: str) -> str:
     """translates an application path into a color"""

@@ -70,7 +70,7 @@ def get_application(application_id: int, session: Session = Depends(get_session)
     return application
 
 
-@applications_router.post("/", status_code=status.HTTP_201_CREATED)
+@applications_router.post("", status_code=status.HTTP_201_CREATED)
 def create_application(request: ApplicationCreateRequest, session: Session = Depends(get_session)):
     """create a new application associated with the user id"""
     application = Application(
