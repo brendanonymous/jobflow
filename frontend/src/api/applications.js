@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000"; // TODO: rm before prod
+const BASE_URL = "http://localhost:8000"; // TODO: update to env var before deployment
 
 export const fetchApplications = async () => {
   const response = await fetch(`${BASE_URL}/applications`);
