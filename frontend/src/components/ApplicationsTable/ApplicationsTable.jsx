@@ -1,8 +1,8 @@
-import "./Applications.css"
+import "./ApplicationsTable.css"
 import { useState, useEffect } from "react"
 import { fetchApplications } from "../../api/applications";
 
-export default function Applications({ refreshTrigger = 0 }) {
+export default function ApplicationsTable({ refreshTrigger = 0,  onApplicationSelected}) {
     const [applications, setApplications] = useState([]);
     
     async function loadApplications() {
@@ -15,7 +15,7 @@ export default function Applications({ refreshTrigger = 0 }) {
     }, [refreshTrigger]);
     
     const listOfApplications = applications.map(application => (
-        <tr key={application.id}>
+        <tr key={application.id} onClick={() => onApplicationSelected(application)}>
             <td>{application.company_name}</td>
             <td>{application.role_name}</td>
             <td>{application.applied_date}</td>

@@ -1,36 +1,65 @@
-import './App.css'
+import './App.css';
 import { useState } from 'react';
 
 import PopUp from './components/PopUp/PopUp';
-import Applications from './components/Applications/Applications';
+import ApplicationsTable from './components/ApplicationsTable/ApplicationsTable';
 import CreateApplicationForm from './components/CreateApplicationForm/CreateApplicationForm';
+import UpdateStatusModal from './components/UpdateStatusModal/UpdateStatusModal';
 
-// TODO: Update application status
-// TODO: Remove an application
-// TODO: Button to generate a Sankey visualization
-// TODO: Auth
 function App() {
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
   const handleApplicationCreated = () => {
-    setShowPopUp(false);
+    setShowCreateModal(false);
     setRefreshKey((prev) => prev + 1);
+  };
+
+  const handleApplicationSelected = (application) => {
+    setSelectedApplication(application);
+  };
+
+  const handleStatusModalClosed = () => {
+    setSelectedApplication(null);
   };
 
   return (
     <>
-      <h2>JobFlow</h2>
-      <div>
-        <button onClick={() => setShowPopUp(true)}>Add New Application</button>
-        <PopUp showPopUp={showPopUp} closePopUp={() => setShowPopUp(false)}>
-          <CreateApplicationForm
-            onSuccess={handleApplicationCreated}
-            onCancel={() => setShowPopUp(false)}
-          />
-        </PopUp>
-      </div>
-      <Applications refreshTrigger={refreshKey} />
+      <h1>JobFlow</h1>
+
+      <button onClick={() => setShowCreateModal(true)}>
+        Add New Application
+      </button>
+
+      <PopUp
+        showPopUp={showCreateModal}
+        closePopUp={() => setShowCreateModal(false)}
+      >
+        <CreateApplicationForm
+          onSuccess={handleApplicationCreated}
+          onCancel={() => setShowCreateModal(false)}
+        />
+      </PopUp>
+
+      <PopUp
+        showPopUp={selectedApplication !== null}
+        closePopUp={() => setSelectedApplication(null)}
+      >
+        <UpdateStatusModal
+          selectedApplication={selectedApplication}
+          onSuccess={() => {
+            setSelectedApplication(null);
+            setRefreshKey((prev) => prev + 1);
+          }}
+          onCancel={() => setSelectedApplication(null)}
+        />
+      </PopUp>
+
+      <ApplicationsTable
+        refreshTrigger={refreshKey}
+        onApplicationSelected={handleApplicationSelected}
+      />
     </>
   );
 }

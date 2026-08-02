@@ -25,3 +25,19 @@ export const createApplication = async (payload) => {
 
   return response.json();
 };
+
+export const addStatusEvent = async (applicationId, status) => {
+  const response = await fetch(`${BASE_URL}/applications/${applicationId}/status_events`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({status}),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return response.json();
+};
