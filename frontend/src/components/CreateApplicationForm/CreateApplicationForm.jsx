@@ -1,7 +1,7 @@
 import { createApplication } from '../../api/applications';
 import './CreateApplicationForm.css';
 
-export default function CreateApplicationForm({ onSuccess, onCancel }) {
+export default function CreateApplicationForm({ onSuccess}) {
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -41,7 +41,6 @@ export default function CreateApplicationForm({ onSuccess, onCancel }) {
             </label>
             <hr />
             <button type="submit">Submit</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
         </form>
     );
 }

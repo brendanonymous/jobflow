@@ -5,9 +5,11 @@ import PopUp from './components/PopUp/PopUp';
 import ApplicationsTable from './components/ApplicationsTable/ApplicationsTable';
 import CreateApplicationForm from './components/CreateApplicationForm/CreateApplicationForm';
 import UpdateStatusModal from './components/UpdateStatusModal/UpdateStatusModal';
+import SankeyModal from './components/SankeyModal/SankeyModal';
 
 function App() {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showSankeyModal, setShowSankeyModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [selectedApplication, setSelectedApplication] = useState(null);
 
@@ -28,32 +30,38 @@ function App() {
     <>
       <h1>JobFlow</h1>
 
+
+      <button onClick={() => setShowSankeyModal(true)}>
+        Generate Sankey Chart
+      </button>
+      <PopUp
+        showPopUp={showSankeyModal}
+        closePopUp={() => setShowSankeyModal(false)}>
+        <SankeyModal/>
+      </PopUp>
+
+
       <button onClick={() => setShowCreateModal(true)}>
         Add New Application
       </button>
-
       <PopUp
         showPopUp={showCreateModal}
-        closePopUp={() => setShowCreateModal(false)}
-      >
+        closePopUp={() => setShowCreateModal(false)}>
         <CreateApplicationForm
-          onSuccess={handleApplicationCreated}
-          onCancel={() => setShowCreateModal(false)}
-        />
+          onSuccess={handleApplicationCreated}/>
       </PopUp>
+
 
       <PopUp
         showPopUp={selectedApplication !== null}
-        closePopUp={() => setSelectedApplication(null)}
-      >
+        closePopUp={() => setSelectedApplication(null)}>
         <UpdateStatusModal
           selectedApplication={selectedApplication}
           onSuccess={() => {
             setSelectedApplication(null);
             setRefreshKey((prev) => prev + 1);
           }}
-          onCancel={() => setSelectedApplication(null)}
-        />
+          onCancel={() => setSelectedApplication(null)}/>
       </PopUp>
 
       <ApplicationsTable

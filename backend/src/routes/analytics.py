@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from src.database import get_session
 from src.models import Application, StatusEvent
 from src.visualizations.sankey import generate_sankey_dto
-import json
+from src.schemas.sankey import SankeyDto
 
 # TODO: remove after cognito is integrated
 # NOTE: there must be a user record with this id
@@ -16,9 +16,9 @@ analytics_router = APIRouter(
     tags=["analytics"],
 )
 
-@analytics_router.get("/sankey", status_code=status.HTTP_200_OK)
+@analytics_router.get("/sankey", status_code=status.HTTP_200_OK, response_model=SankeyDto)
 def generate_sankey(session: Session = Depends(get_session)):
-    """Generate a Sankey dto and return to user"""
+    """Generate a Sankey dto and return to user as JSON"""
     # get all applications and status events from the db
     applications = session.execute(
         select(Application)
@@ -39,4 +39,5 @@ def generate_sankey(session: Session = Depends(get_session)):
 
     sankey_dto = generate_sankey_dto(status_paths)
 
-    return json.dumps(sankey_dto, default=str)
+    # return the Pydantic model directly; FastAPI will serialize to JSON
+    return sankey_dto
