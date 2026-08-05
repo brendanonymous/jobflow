@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "oidc-client-ts": "^3.5.0",
     "plotly.js-basic-dist": "^3.7.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-oidc-context": "^3.3.1",
     "react-plotly.js": "^4.1.0"
   },
   "devDependencies": {
